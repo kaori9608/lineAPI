@@ -24,7 +24,6 @@ if ($message->{"text"} == '出勤') {
                     'label' => '通常',
                     'text' => '通常',
                     'data' => '通常'
-
                 ],
                 [
                     'type' => 'postback',
@@ -35,26 +34,54 @@ if ($message->{"text"} == '出勤') {
             ]
         ]
     ];
+	foreach ($message) {
+	    $csv .= $messageData. "\n";
+	}
 } elseif ($message->{"text"} == '退勤') {
-    // ボタンタイプ
+    // 確認ダイアログタイプ
     $messageData = [
         'type' => 'template',
-        'altText' => 'ボタン',
+        'altText' => '確認ダイアログ',
         'template' => [
-            'type' => 'buttons',
-            'title' => 'タイトルです',
-            'text' => '選択してね',
+            'type' => 'confirm',
+            'text' => '出勤パターンは',
             'actions' => [
                 [
                     'type' => 'postback',
-                    'label' => '退勤',
-                    'data' => '退勤'
+                    'label' => '通常',
+                    'text' => '通常',
+                    'data' => '通常'
                 ],
                 [
                     'type' => 'postback',
-                    'label' => '直帰',
-                    'data' => '退勤'
-                ]
+                    'label' => '直行',
+                    'text' => '直行',
+                    'data' => '直行',
+                ],
+            ]
+        ]
+    ];
+} elseif ($message->{"text"} == '公休') {
+    // 確認ダイアログタイプ
+    $messageData = [
+        'type' => 'template',
+        'altText' => '確認ダイアログ',
+        'template' => [
+            'type' => 'confirm',
+            'text' => '日付は',
+            'actions' => [
+                [
+                    'type' => 'postback',
+                    'label' => '明日',
+                    'text' => '明日',
+                    'data' => '明日'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '明後日',
+                    'text' => '明後日',
+                    'data' => '明後日',
+                ],
             ]
         ]
     ];
@@ -83,4 +110,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 ));
 $result = curl_exec($ch);
 error_log($result);
+
+
+
 curl_close($ch);
