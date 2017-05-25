@@ -34,9 +34,6 @@ if ($message->{"text"} == '出勤') {
             ]
         ]
     ];
-	foreach ($message) {
-	    $csv .= $messageData. "\n";
-	}
 } elseif ($message->{"text"} == '退勤') {
     // 確認ダイアログタイプ
     $messageData = [
