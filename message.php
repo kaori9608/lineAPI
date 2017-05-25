@@ -41,7 +41,7 @@ if ($message->{"text"} == '出勤') {
         'altText' => '確認ダイアログ',
         'template' => [
             'type' => 'confirm',
-            'text' => '出勤パターンは',
+            'text' => '退勤パターンは',
             'actions' => [
                 [
                     'type' => 'postback',
