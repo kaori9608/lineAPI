@@ -1,0 +1,219 @@
+.hidden {
+	display: none !important;
+}
+
+.box{
+	width: 100%;
+}
+
+.box50{
+	float: left;
+	width: 50%;
+	padding:5px;
+}
+
+h3{
+	background-color: lightyellow;
+}
+
+/*支店の大枠*/
+
+.global_box{
+	border-width: 2px 0 0 0;
+	border-color: #333;
+	border-style: solid;
+	clear: both;
+}
+
+/*支店枠*/
+
+.shop_box{
+	border-width: 0 2px 2px 2px;
+	border-color: #333;
+	border-style: solid;
+	width: 100%;
+	float: left;
+	min-height: 98px;
+}
+
+/*支店-左枠*/
+
+.shop_left_box{
+	border-width: 0 0 1px 0;
+	border-color: #333;
+	border-style: solid;
+	width: 10%;
+	text-align: center;
+	float: left;
+	min-height:97px;
+	line-height: 97px;
+	background-color: orange;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+.shop_left_box_2{
+	border-color: #333;
+	border-style: solid;
+	width: 10%;
+	text-align: center;
+	float: left;
+	min-height:146px;
+	line-height: 146px;
+	background-color: orange;
+}
+
+.shop_left_box_3{
+	border-color: #333;
+	border-style: solid;
+	width: 10%;
+	text-align: center;
+	float: left;
+	min-height:195px;
+	line-height: 195px;
+	background-color: orange;
+}
+
+.shop_left_box_4{
+	border-color: #333;
+	border-style: solid;
+	width: 10%;
+	text-align: center;
+	float: left;
+	min-height:244px;
+	line-height: 244px;
+	background-color: orange;
+}
+
+/*支店-右枠*/
+
+.shop_right_box{
+	border-width: 0 0 0 1px;
+	border-color: #333;
+	border-style: solid;
+	height: 100%;
+	float: left;
+	width: 90%;
+}
+
+
+.group_box{
+	border-width: 0 0 1px 0 ;
+	border-color: #333;
+	border-style: solid;
+	height: 100%;
+	float: left;
+	width: 100%;
+}
+
+.staff_box div:last-child{
+}
+
+
+/*支店名*/
+
+.group_name_box{
+	border-width: 0;
+	border-color: #333;
+	border-style: solid;
+	height: 100%;
+	float: left;
+	width: 10%;
+	padding:3px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.group_name_box_job{
+	height: 48px;
+	line-height: 48px;
+	border-width: 0 1px 0 0;
+	background-color: #ccc;
+}
+
+.group_name_box_job_head{
+	height: 97px;
+	line-height: 97px;
+	border-width: 0 1px 0 0;
+	background-color: #ccc;
+}
+
+.staff_box{
+	height: 100%;
+	float: left;
+	width: 90%;
+	text-align: center;
+}
+
+.staff_box div:nth-child(8n){
+	border-right-width: 0px;
+}
+
+.staff_box div:nth-child(n+9){
+	border-bottom-width: 0px;
+}
+
+
+.staff_detail_box{
+	border-width: 0px 1px 0px 0px;
+	border-color: #333;
+	border-style: solid;
+	height: 100%;
+	float: left;
+	width: 12.5%;
+	padding:3px;
+	text-align: center;
+}
+
+.staff_job_box{
+	float: left;
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	overflow: hidden;
+}
+
+
+.status0{	/*未入力*/
+	background-color: #eee;
+	color: #666;
+}
+.status1{	/*出勤*/
+	background-color: lightyellow;
+}
+.status2{	/*欠勤*/
+	background-color: red;
+	color: white;
+}
+.status3{	/*退勤*/
+	background-color: darkseagreen;
+	color: white;
+}
+.status4{	/*役員*/
+	background-color: lightblue;
+	color: #333;
+}
+.status5{	/*有給*/
+	background-color: #CC33CC;
+	color: #fff;
+}
+.status6{	/*出張中*/
+	background-color: #008000;
+	color: #fff;
+}
+
+.staff_name_box{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.bottom_border{
+	border-bottom-width: 1px;
+}
+
+._border{
+	border-top-width: 1px;
+}
+body{
+	padding:5px;
+}

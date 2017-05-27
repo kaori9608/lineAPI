@@ -51,9 +51,9 @@ if ($message->{"text"} == '出勤') {
                 ],
                 [
                     'type' => 'postback',
-                    'label' => '直行',
-                    'text' => '直行',
-                    'data' => '直行',
+                    'label' => '直帰',
+                    'text' => '直帰',
+                    'data' => '直帰',
                 ],
             ]
         ]
