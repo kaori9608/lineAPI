@@ -21,15 +21,27 @@ if ($message->{"text"} == '出勤') {
             'actions' => [
                 [
                     'type' => 'postback',
-                    'label' => '通常',
+                    'label' => '通常出勤',
                     'text' => '通常',
-                    'data' => '通常'
+                    'data' => '通常出勤で登録'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直行',
                     'text' => '直行',
-                    'data' => '直行',
+                    'data' => '直行で登録',
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '遅出',
+                    'text' => '遅出',
+                    'data' => '遅出で登録'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '遅刻',
+                    'text' => '遅刻',
+                    'data' => '遅刻で登録'
                 ],
             ]
         ]
@@ -45,15 +57,27 @@ if ($message->{"text"} == '出勤') {
             'actions' => [
                 [
                     'type' => 'postback',
-                    'label' => '通常',
-                    'text' => '通常',
-                    'data' => '通常'
+                    'label' => '早退',
+                    'text' => '早退',
+                    'data' => '早退で登録'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直帰',
                     'text' => '直帰',
-                    'data' => '直帰',
+                    'data' => '直帰で登録',
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '通常出勤',
+                    'text' => '通常',
+                    'data' => '通常出勤で登録'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '宿着',
+                    'text' => '宿着',
+                    'data' => '宿着で登録'
                 ],
             ]
         ]
