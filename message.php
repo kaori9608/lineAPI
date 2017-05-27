@@ -96,10 +96,10 @@ if ($message->{"text"} == '出勤') {
     ];
 } else {
     // それ以外は送られてきたテキストをオウム返し
-    $messageData = [
-        'type' => 'text',
-        'text' => $message->{"text"}
-    ];
+    // $messageData = [
+    //     'type' => 'text',
+    //     'text' => $message->{"text"}
+    // ];
 }
 
 $response = [
