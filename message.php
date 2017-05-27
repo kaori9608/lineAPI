@@ -16,9 +16,21 @@ if ($message->{"text"} == '出勤') {
         'type' => 'template',
         'altText' => '確認ダイアログ',
         'template' => [
-            'type' => 'confirm',
+            'type' => 'buttons',
             'text' => '出勤パターンは',
             'actions' => [
+                [
+                    'type' => 'postback',
+                    'label' => '通常出勤',
+                    'text' => '通常',
+                    'data' => '通常出勤で登録'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '直行',
+                    'text' => '直行',
+                    'data' => '直行',
+                ],
                 [
                     'type' => 'postback',
                     'label' => '通常',
@@ -40,7 +52,7 @@ if ($message->{"text"} == '出勤') {
         'type' => 'template',
         'altText' => '確認ダイアログ',
         'template' => [
-            'type' => 'confirm',
+            'type' => 'buttons',
             'text' => '退勤パターンは',
             'actions' => [
                 [
@@ -64,7 +76,7 @@ if ($message->{"text"} == '出勤') {
         'type' => 'template',
         'altText' => '確認ダイアログ',
         'template' => [
-            'type' => 'confirm',
+            'type' => 'buttons',
             'text' => '日付は',
             'actions' => [
                 [
