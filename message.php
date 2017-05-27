@@ -22,25 +22,25 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '通常出勤',
-                    'text' => '通常',
-                    'data' => '通常出勤で登録'
-                ],
-                [
-                    'type' => 'postback',
-                    'label' => '直行',
-                    'text' => '直行',
-                    'data' => '直行',
-                ],
-                [
-                    'type' => 'postback',
-                    'label' => '通常',
-                    'text' => '通常',
+                    'text' => '通常出勤で登録',
                     'data' => '通常'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直行',
-                    'text' => '直行',
+                    'text' => '直行で登録',
+                    'data' => '直行',
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '通常',
+                    'text' => '通常で登録',
+                    'data' => '通常'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '直行',
+                    'text' => '直行で登録',
                     'data' => '直行',
                 ],
             ]
@@ -58,13 +58,13 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '通常',
-                    'text' => '通常',
+                    'text' => '通常で登録',
                     'data' => '通常'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直帰',
-                    'text' => '直帰',
+                    'text' => '直帰で登録',
                     'data' => '直帰',
                 ],
             ]
@@ -82,13 +82,13 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '明日',
-                    'text' => '明日',
+                    'text' => '明日で登録',
                     'data' => '明日'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明後日',
-                    'text' => '明後日',
+                    'text' => '明後日で登録',
                     'data' => '明後日',
                 ],
             ]
