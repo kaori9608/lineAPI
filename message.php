@@ -120,15 +120,15 @@ if ($message->{"text"} == '出勤') {
          'type' => 'text',
          'text' => $message->{"text"}
      ];
-    //  //DBに接続
-    // try {
-    //     $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
-    //     } catch (PDOException $e) {
-    //      exit('データベース接続失敗。'.$e->getMessage());
-    // }
-    //      // インサートする  
-    // $stmt = $pdo -> prepare("INSERT INTO `wo_work_time` (`work_date`, `work_time`, `out_time`, `me_staff_detail_id`, `wo_work_status_id`) VALUES (GETDATE(), GETDATE(), GETDATE(), $displayName, `1`)");
-    // $stmt -> execute();
+     //DBに接続
+    try {
+        $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
+        } catch (PDOException $e) {
+         exit('データベース接続失敗。'.$e->getMessage());
+    }
+         // インサートする  
+    $stmt = $pdo -> prepare("INSERT INTO `test` (`date`, `time`, `name`, `text`) VALUES (GETDATE(), GETDATE(), $displayName, $messageData)");
+    $stmt -> execute();
 
     // //$massege_arrayの中に$messageDataを格納
     // $message_array = json_decode($message);
