@@ -134,24 +134,18 @@ if ($message->{"text"} == '出勤') {
     // die('接続失敗です。'.mysql_error());
 
 
-     //DBに接続
-    // try {
-    //     $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
-    //     } catch (PDOException $e) {
-    //      exit('データベース接続失敗。'.$e->getMessage());
-    // }
-    //      // インサートする  
-    // $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
-    // $stmt -> execute();
-
-    // //$massege_arrayの中に$messageDataを格納
-    // $message_array = json_decode($message);
-    // foreach ($messages as $key => $value) {
-    //     $obj->{$key}  = "〜".$value."〜" ;
-    //     if ($message_array) {
-    //         # code...
-    //     }
+    // DBに接続
+    try {
+        $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
+        array(PDO::ATTR_EMULATE_PREPARES => false));
+        } catch (PDOException $e) {
+         exit('データベース接続失敗。'.$e->getMessage());
+        }
+    // インサートする  
+    $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($message, $messageData)");
+    $stmt -> execute();
 }
+
 $response = [
     'replyToken' => $replyToken,
     'messages' => [$messageData]
