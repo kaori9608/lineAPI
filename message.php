@@ -1,4 +1,5 @@
 <?php
+require_once('./vendor/autoload.php'); // SDKの読み込み
 
 $accessToken = 'aWauEUHKwacwEryzppEW/hoquAKyuCXKQvSbsLggJ7jjG2N/KQTEpvXzoNsm5mESnUOyZfhXn+5WqSIQ5ZggTlvASS0Cy6xvWS1JDXkeDeON3x6pEzaBmKHmljyXyAqOhV8cCJonYvFtHwmXB9AiLAdB04t89/1O/w1cDnyilFU=';
 
@@ -9,7 +10,33 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
+//DBに接続
+try {
+    $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
+    } catch (PDOException $e) {
+     exit('データベース接続失敗。'.$e->getMessage());
+    }
+
+class LineMessage{
+  private $profile_array = array(); //プロフィールを格納する配列 displayName:表示名 userId:ユーザ識別子
+  private $replyToken;
+  private $userId;
+  private $httpClient;
+  private $bot;
+
+    function get_profile(){
+    $response = $this->bot->getProfile($this->userId);
+        if ($response->isSucceeded()) {
+            $profile = $response->getJSONDecodedBody();
+            $displayName = $profile['displayName'];
+            $userId = $profile['userId'];
+            $this->profile_array = array("displayName"=>$displayName,"userId"=>$userId);
+    }
+}
+
+
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
+// ボタンの内容を発言にする
 if ($message->{"text"} == '出勤') {
     // 確認ダイアログタイプ
     $messageData = [
@@ -22,26 +49,26 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '通常出勤',
-                    'text' => '通常出勤で登録',
-                    'data' => '通常'
+                    'text' => '通常出勤',
+                    'data' => '1'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直行',
-                    'text' => '直行で登録',
-                    'data' => '直行',
+                    'text' => '直行',
+                    'data' => '2',
                 ],
                 [
                     'type' => 'postback',
-                    'label' => '通常',
-                    'text' => '通常で登録',
-                    'data' => '通常'
+                    'label' => '遅出',
+                    'text' => '遅出',
+                    'data' => '3'
                 ],
                 [
                     'type' => 'postback',
-                    'label' => '直行',
-                    'text' => '直行で登録',
-                    'data' => '直行',
+                    'label' => '遅刻',
+                    'text' => '遅刻',
+                    'data' => '4',
                 ],
             ]
         ]
@@ -57,15 +84,27 @@ if ($message->{"text"} == '出勤') {
             'actions' => [
                 [
                     'type' => 'postback',
-                    'label' => '通常',
-                    'text' => '通常で登録',
-                    'data' => '通常'
+                    'label' => '退社',
+                    'text' => '退社',
+                    'data' => '5'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直帰',
-                    'text' => '直帰で登録',
-                    'data' => '直帰',
+                    'text' => '直帰',
+                    'data' => '6',
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '早退',
+                    'text' => '早退',
+                    'data' => '7'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '宿着',
+                    'text' => '宿着',
+                    'data' => '8',
                 ],
             ]
         ]
@@ -82,25 +121,45 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '明日',
-                    'text' => '明日で登録',
+                    'text' => '明日',
                     'data' => '明日'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明後日',
-                    'text' => '明後日で登録',
+                    'text' => '明後日',
                     'data' => '明後日',
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '明々後日',
+                    'text' => '明々後日',
+                    'data' => '明々後日'
                 ],
             ]
         ]
     ];
-} else {
-    // それ以外は送られてきたテキストをオウム返し
-    // $messageData = [
-    //     'type' => 'text',
-    //     'text' => $message->{"text"}
-    // ];
+} elseif {
+    // 発言の内容についてをDBに格納する。
+    $messageData = [
+         'type' => 'text',
+         'text' => $message->{"text"}
+     ];
+
+    //$massege_arrayの中に$messageDataを格納
+    $message_array = json_decode($message);
+    foreach ($messages as $key => $value) {
+        $obj->{$key}  = "〜".$value."〜" ;
+        if ($message_array) {
+            # code...
+        }
+    }
 }
+
+} else {
+    // インサートする  
+    $stmt = $pdo -> prepare("INSERT INTO `wo_work_time` (`work_date`, `work_time`, `out_time`, `me_staff_detail_id`, `wo_work_status_id`) VALUES (GETDATE(), GETDATE(), GETDATE(), $displayName, `1`)");
+    $stmt -> execute();
 
 $response = [
     'replyToken' => $replyToken,
@@ -121,5 +180,7 @@ $result = curl_exec($ch);
 error_log($result);
 
 
-
 curl_close($ch);
+
+
+
