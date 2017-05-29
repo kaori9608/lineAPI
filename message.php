@@ -120,15 +120,32 @@ if ($message->{"text"} == '出勤') {
          'type' => 'text',
          'text' => $message->{"text"}
      ];
+
+     $link = mysql_connect("host=us-cdbr-iron-east-03.cleardb.net", "b230e075a82da6", "36098907", "heroku_e84ff0594615ec5");
+if (!$link) {
+die('接続失敗です。'.mysql_error());
+}
+$db_selected = mysql_select_db('heroku_e84ff0594615ec5', $link);
+if (!$db_selected) {
+die('データベース選択失敗です。'.mysql_error());
+}
+mysql_set_charset('utf8');
+$result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
+if (!$result) {
+}
+$row = mysql_fetch_assoc($result)
+
+
+
      //DBに接続
-    try {
-        $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
-        } catch (PDOException $e) {
-         exit('データベース接続失敗。'.$e->getMessage());
-    }
-         // インサートする  
-    $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
-    $stmt -> execute();
+    // try {
+    //     $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
+    //     } catch (PDOException $e) {
+    //      exit('データベース接続失敗。'.$e->getMessage());
+    // }
+    //      // インサートする  
+    // $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
+    // $stmt -> execute();
 
     // //$massege_arrayの中に$messageDataを格納
     // $message_array = json_decode($message);
