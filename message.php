@@ -127,7 +127,7 @@ if ($message->{"text"} == '出勤') {
          exit('データベース接続失敗。'.$e->getMessage());
     }
          // インサートする  
-    $stmt = $pdo -> prepare("INSERT INTO `test` (`date`, `time`, `name`, `text`) VALUES (GETDATE(), GETDATE(), $displayName, $messageData)");
+    $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
     $stmt -> execute();
 
     // //$massege_arrayの中に$messageDataを格納
