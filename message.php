@@ -123,7 +123,8 @@ if ($message->{"text"} == '出勤') {
 
     $link = mysql_connect("us-cdbr-iron-east-03.cleardb.net", "b230e075a82da6", "36098907", "heroku_e84ff0594615ec5");
     if (!$link) {
-
+    die('接続失敗です。'.mysql_error());
+    }
     $db_selected = mysql_select_db('heroku_e84ff0594615ec5', $link);
     if (!$db_selected) {
     die('データベース選択失敗です。'.mysql_error());
@@ -132,7 +133,8 @@ if ($message->{"text"} == '出勤') {
     $result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
     if (!$result) {
     }
-    $row = mysql_fetch_assoc($result)die('接続失敗です。'.mysql_error());
+    $row = mysql_fetch_assoc($result);
+    die('接続失敗です。'.mysql_error());
     }
 
 
