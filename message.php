@@ -1,5 +1,5 @@
 <?php
-
+require_once('./vendor/autoload.php');
 $accessToken = 'aWauEUHKwacwEryzppEW/hoquAKyuCXKQvSbsLggJ7jjG2N/KQTEpvXzoNsm5mESnUOyZfhXn+5WqSIQ5ZggTlvASS0Cy6xvWS1JDXkeDeON3x6pEzaBmKHmljyXyAqOhV8cCJonYvFtHwmXB9AiLAdB04t89/1O/w1cDnyilFU=';
 
 $jsonString = file_get_contents('php://input');
@@ -121,14 +121,25 @@ if ($message->{"text"} == '出勤') {
          'text' => $message->{"text"}
      ];
 
-// データベースに接続するために必要なデータソースを変数に格納
-$dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8;reconnect=true';
-  // データベースのユーザー名
-$user = 'b230e075a82da6';
-  // データベースのパスワード
-$password = '36098907';
- 
-// tryにPDOの処理を記述1
+    function get_profile(){
+        $response = $this->bot->getProfile($this->userId);
+            if ($response->isSucceeded()) {
+            $profile = $response->getJSONDecodedBody();
+            $displayName = $profile['displayName'];
+            $userId = $profile['userId'];
+            $profile_array = array("displayName"=>$displayName,"userId"=>$userId);
+            }
+    }
+
+
+    // データベースに接続するために必要なデータソースを変数に格納
+    $dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8;reconnect=true';
+      // データベースのユーザー名
+    $user = 'b230e075a82da6';
+      // データベースのパスワード
+    $password = '36098907';
+     
+    // tryにPDOの処理を記述
     try {
       // PDOインスタンスを生成
       $dbh = new PDO($dsn, $user, $password);
@@ -136,20 +147,19 @@ $password = '36098907';
     } catch (PDOException $e) {
       // エラーメッセージを表示させる
       echo 'データベースにアクセスできません！' . $e->getMessage();
-      // 強制終了
       exit;
     }
-// INSERT文を変数に格納
-$sql = "INSERT INTO work_time (`wo_work_time_id`, `work_date`, `work_time`, `out_time`, `wo_work_status_id`, `wo_work_status`, `updated`) VALUES (:wo_work_time_id, :work_date, :work_time, :out_time, :wo_work_status_id, :wo_work_status, :updated)";
+    // INSERT文を変数に格納
+    $sql = "INSERT INTO n_work_time (`idn_work_time`, `work_date`, `me_staff_detail_id`, `me_staff_detail_name`, `wo_work_status_id`, `wo_work_status_name`, `updated`) VALUES (:wo_work_time_id, :work_date, :me_staff_detail_id, :me_staff_detail_name, :wo_work_status_id, :wo_work_status_name, :updated)";
 
-// 挿入する値は空のまま、SQL実行の準備をする
-$stmt = $dbh->prepare($sql);
+    // 挿入する値は空のまま、SQL実行の準備をする
+    $stmt = $dbh->prepare($sql);
 
-// 挿入する値を配列に格納する
-$params = array(':wo_work_time_id' => '', ':work_date' => date("m/t"), ':work_time' => date("H:i"), ':out_time' => date("H:i"), ':wo_work_status_id' => $message->{"data"}, ':wo_work_status' => $message->{"text"}, ':updated' => date("H:i"));
- 
-// 挿入する値が入った変数をexecuteにセットしてSQLを実行
-$stmt->execute($params);
+    // 挿入する値を配列に格納する
+    $params = array(':idn_work_time' => '', ':work_date' => date(), ':me_staff_detail_id' => $profile_array->{"userId"}, ':me_staff_detail_name' => $profile_array->{"displayName"}, ':wo_work_status_id' => $message->{"text"}, ':wo_work_status_name' => $message->{"text"}, ':updated' => date());
+     
+    // 挿入する値が入った変数をexecuteにセットしてSQLを実行
+    $stmt->execute($params);
 
 }
 
