@@ -121,17 +121,17 @@ if ($message->{"text"} == '出勤') {
          'text' => $message->{"text"}
      ];
 
-    $link = mysql_connect("us-cdbr-iron-east-03.cleardb.net", "b230e075a82da6", "36098907", "heroku_e84ff0594615ec5");
-    if (!$link) {
-    die('接続失敗です。'.mysql_error());
-    }
-    $db_selected = mysql_select_db('heroku_e84ff0594615ec5', $link);
-    if (!$db_selected) {
-    die('データベース選択失敗です。'.mysql_error());
-    }
-    mysql_set_charset('utf8');
-    $result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($messageData, $messageData)");
-    die('接続失敗です。'.mysql_error());
+    // $link = mysql_connect("us-cdbr-iron-east-03.cleardb.net", "b230e075a82da6", "36098907", "heroku_e84ff0594615ec5");
+    // if (!$link) {
+    // die('接続失敗です。'.mysql_error());
+    // }
+    // $db_selected = mysql_select_db('heroku_e84ff0594615ec5', $link);
+    // if (!$db_selected) {
+    // die('データベース選択失敗です。'.mysql_error());
+    // }
+    // mysql_set_charset('utf8');
+    // $result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($messageData, $messageData)");
+    // die('接続失敗です。'.mysql_error());
 
 
      //DBに接続
