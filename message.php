@@ -135,8 +135,6 @@ if ($message->{"text"} == '出勤') {
     }
     $row = mysql_fetch_assoc($result);
     die('接続失敗です。'.mysql_error());
-    }
-
 
 
      //DBに接続
