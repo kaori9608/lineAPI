@@ -130,10 +130,7 @@ if ($message->{"text"} == '出勤') {
     die('データベース選択失敗です。'.mysql_error());
     }
     mysql_set_charset('utf8');
-    $result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($displayName, $messageData)");
-    if (!$result) {
-    }
-    $row = mysql_fetch_assoc($result);
+    $result = mysql_query("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($messageData, $messageData)");
     die('接続失敗です。'.mysql_error());
 
 
