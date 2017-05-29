@@ -11,7 +11,6 @@ this is line api content
 $dsn = 'mysql:us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8';
   // データベースのユーザー名
 $user = 'b230e075a82da6';
- 
   // データベースのパスワード
 $password = '36098907';
  
