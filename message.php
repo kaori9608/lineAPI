@@ -121,16 +121,36 @@ if ($message->{"text"} == '出勤') {
          'text' => $message->{"text"}
      ];
 
-    // // DBに接続
-    // try {
-    //     $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
-    //     array(PDO::ATTR_EMULATE_PREPARES => false));
-    //     } catch (PDOException $e) {
-    //      exit('データベース接続失敗。'.$e->getMessage());
-    //     }
-    // // インサートする  
-    // $stmt = $pdo -> prepare("INSERT INTO `test` (`testcol`, `testcol1`) VALUES ($message, $messageData)");
-    // $stmt -> execute();
+// データベースに接続するために必要なデータソースを変数に格納
+$dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;reconnect=true';
+  // データベースのユーザー名
+$user = 'b230e075a82da6';
+  // データベースのパスワード
+$password = '36098907';
+ 
+// tryにPDOの処理を記述1
+    try {
+      // PDOインスタンスを生成
+      $dbh = new PDO($dsn, $user, $password);
+    // エラー（例外）が発生した時の処理を記述
+    } catch (PDOException $e) {
+      // エラーメッセージを表示させる
+      echo 'データベースにアクセスできません！' . $e->getMessage();
+      // 強制終了
+      exit;
+    }
+// INSERT文を変数に格納
+$sql = "INSERT INTO test (testcol, testcol1) VALUES (:name, :population)";
+
+// 挿入する値は空のまま、SQL実行の準備をする
+$stmt = $dbh->prepare($sql);
+
+// 挿入する値を配列に格納する
+$params = array(':name' => "text", ':population' => "text");
+ 
+// 挿入する値が入った変数をexecuteにセットしてSQLを実行
+$stmt->execute($params);
+
 }
 
 $response = [
