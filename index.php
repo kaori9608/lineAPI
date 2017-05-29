@@ -26,7 +26,7 @@ try {
   exit;
 }
 
- ?>>
+ ?>
 </body>
 </html>
 
