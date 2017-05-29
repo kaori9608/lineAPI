@@ -8,13 +8,13 @@ this is line api content
 <?php 
 // データベースに接続するために必要なデータソースを変数に格納
   // mysql:host=ホスト名;dbname=データベース名;charset=文字エンコード
-$dsn = 'mysql://b230e075a82da6:36098907@us-cdbr-iron-east-03.cleardb.net/heroku_e84ff0594615ec5?reconnect=true';
+$dsn = 'mysql:us-cdbr-iron-east-03.cleardb.net/heroku_e84ff0594615ec5?reconnect=true';
   // データベースのユーザー名
 $user = 'b230e075a82da6';
   // データベースのパスワード
 $password = '36098907';
  
-// tryにPDOの処理を記述
+// tryにPDOの処理を記述1
 try {
   // PDOインスタンスを生成
   $dbh = new PDO($dsn, $user, $password);
@@ -29,3 +29,7 @@ try {
  ?>>
 </body>
 </html>
+
+<!--
+mysql://b230e075a82da6:36098907@us-cdbr-iron-east-03.cleardb.net/heroku_e84ff0594615ec5?reconnect=true
+-->
