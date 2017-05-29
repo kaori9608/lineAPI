@@ -122,7 +122,7 @@ if ($message->{"text"} == '出勤') {
      ];
 
 // データベースに接続するために必要なデータソースを変数に格納
-$dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;reconnect=true';
+$dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8;reconnect=true';
   // データベースのユーザー名
 $user = 'b230e075a82da6';
   // データベースのパスワード
