@@ -137,11 +137,7 @@ if ($message->{"text"} == '出勤') {
     //     if ($message_array) {
     //         # code...
     //     }
-    }
 }
-
-
-
 $response = [
     'replyToken' => $replyToken,
     'messages' => [$messageData]
@@ -159,9 +155,6 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 ));
 $result = curl_exec($ch);
 error_log($result);
-
-
 curl_close($ch);
-
 
 
