@@ -10,30 +10,6 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-//DBに接続
-try {
-    $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
-    } catch (PDOException $e) {
-     exit('データベース接続失敗。'.$e->getMessage());
-    }
-
-class LineMessage{
-  private $profile_array = array(); //プロフィールを格納する配列 displayName:表示名 userId:ユーザ識別子
-  private $replyToken;
-  private $userId;
-  private $httpClient;
-  private $bot;
-
-    function get_profile(){
-    $response = $this->bot->getProfile($this->userId);
-        if ($response->isSucceeded()) {
-            $profile = $response->getJSONDecodedBody();
-            $displayName = $profile['displayName'];
-            $userId = $profile['userId'];
-            $this->profile_array = array("displayName"=>$displayName,"userId"=>$userId);
-    }
-}
-
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
@@ -139,27 +115,33 @@ if ($message->{"text"} == '出勤') {
             ]
         ]
     ];
-} elseif {
+} else {
     // 発言の内容についてをDBに格納する。
     $messageData = [
          'type' => 'text',
          'text' => $message->{"text"}
      ];
+     //DBに接続
+    try {
+        $pdo = new PDO('mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8','b230e075a82da6','36098907');
+        } catch (PDOException $e) {
+         exit('データベース接続失敗。'.$e->getMessage());
+    }
+         // インサートする  
+    $stmt = $pdo -> prepare("INSERT INTO `wo_work_time` (`work_date`, `work_time`, `out_time`, `me_staff_detail_id`, `wo_work_status_id`) VALUES (GETDATE(), GETDATE(), GETDATE(), $displayName, `1`)");
+    $stmt -> execute();
 
-    //$massege_arrayの中に$messageDataを格納
-    $message_array = json_decode($message);
-    foreach ($messages as $key => $value) {
-        $obj->{$key}  = "〜".$value."〜" ;
-        if ($message_array) {
-            # code...
-        }
+    // //$massege_arrayの中に$messageDataを格納
+    // $message_array = json_decode($message);
+    // foreach ($messages as $key => $value) {
+    //     $obj->{$key}  = "〜".$value."〜" ;
+    //     if ($message_array) {
+    //         # code...
+    //     }
     }
 }
 
-} else {
-    // インサートする  
-    $stmt = $pdo -> prepare("INSERT INTO `wo_work_time` (`work_date`, `work_time`, `out_time`, `me_staff_detail_id`, `wo_work_status_id`) VALUES (GETDATE(), GETDATE(), GETDATE(), $displayName, `1`)");
-    $stmt -> execute();
+
 
 $response = [
     'replyToken' => $replyToken,
