@@ -25,21 +25,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '通常出勤',
                     'text' => '通常出勤',
+                    'data' => '1'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直行',
                     'text' => '直行',
+                    'data' => '2',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '遅出',
                     'text' => '遅出',
+                    'data' => '3'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '遅刻',
                     'text' => '遅刻',
+                    'data' => '4',
                 ],
             ]
         ]
@@ -57,21 +61,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '退社',
                     'text' => '退社',
+                    'data' => '5'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直帰',
                     'text' => '直帰',
+                    'data' => '6',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '早退',
                     'text' => '早退',
+                    'data' => '7'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '宿着',
                     'text' => '宿着',
+                    'data' => '8',
                 ],
             ]
         ]
@@ -89,21 +97,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '今日',
                     'text' => '今日',
+                    'data' => '12'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明日',
                     'text' => '明日',
+                    'data' => '9'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明後日',
                     'text' => '明後日',
+                    'data' => '10',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明々後日',
                     'text' => '明々後日',
+                    'data' => '11'
                 ],
             ]
         ]
