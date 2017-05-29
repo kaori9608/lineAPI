@@ -97,19 +97,19 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '明日',
                     'text' => '明日',
-                    'data' => '明日'
+                    'data' => '10'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明後日',
                     'text' => '明後日',
-                    'data' => '明後日',
+                    'data' => '11',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明々後日',
                     'text' => '明々後日',
-                    'data' => '明々後日'
+                    'data' => '12'
                 ],
             ]
         ]
@@ -140,13 +140,13 @@ $password = '36098907';
       exit;
     }
 // INSERT文を変数に格納
-$sql = "INSERT INTO test (testcol, testcol1) VALUES (:name, :population)";
+$sql = "INSERT INTO work_time (`wo_work_time_id`, `work_date`, `work_time`, `out_time`, `wo_work_status_id`, `wo_work_status`, `updated`) VALUES (:wo_work_time_id, :work_date, :work_time, :out_time, :wo_work_status_id, :wo_work_status, :updated)";
 
 // 挿入する値は空のまま、SQL実行の準備をする
 $stmt = $dbh->prepare($sql);
 
 // 挿入する値を配列に格納する
-$params = array(':name' => "text", ':population' => "text");
+$params = array(':wo_work_time_id' => '', ':work_date' => date("m/t"), ':work_time' => date("H:i"), ':out_time' => date("H:i"), ':wo_work_status_id' => $message->{"data"}, ':wo_work_status' => $message->{"text"}, ':updated' => date("H:i"));
  
 // 挿入する値が入った変数をexecuteにセットしてSQLを実行
 $stmt->execute($params);
