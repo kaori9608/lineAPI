@@ -131,15 +131,7 @@ if ($message->{"text"} == '出勤') {
     $work_datanum = str_replace($search,$replace,$str);
     //時刻の取得
     $now = date('Y-m-d H:i:s');
-    function get_profile(){
-        $response = $this->bot->getProfile($this->userId);
-            if ($response->isSucceeded()) {
-            $profile = $response->getJSONDecodedBody();
-            $displayName = $profile['displayName'];
-            $userId = $profile['userId'];
-            $profile_array = array("displayName"=>$displayName,"userId"=>$userId);
-            }
-    }
+
     // データベースに接続するために必要なデータソースを変数に格納
     $dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8;reconnect=true';
       // データベースのユーザー名
