@@ -11,10 +11,10 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-// ユーザ情報
-$source = $jsonObj->{"events"}[0]->{"source"};
-// sourceからユーザ情報を取得   
-$send_userId = $source->{"userId"};
+// // ユーザ情報
+// $source = $jsonObj->{"events"}[0]->{"source"};
+// // sourceからユーザ情報を取得   
+// $send_userId = $source->{"userId"};
 
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
@@ -147,6 +147,12 @@ if ($message->{"text"} == '出勤') {
     $user = 'b230e075a82da6';
       // データベースのパスワード
     $password = '36098907';
+     
+// ユーザ情報
+$source = $jsonObj->{"events"}[0]->{"source"};
+// sourceからユーザ情報を取得   
+$send_userId = $source->{"userId"};
+
      
     // tryにPDOの処理を記述
     try {
