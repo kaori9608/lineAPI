@@ -11,16 +11,119 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-// ユーザ情報
-$source = $jsonObj->{"events"}[0]->{"source"};
-// sourceからユーザ情報を取得   
-$send_userId = $source->{"userId"};
+// // ユーザ情報
+$send_userId = $jsonObj->{"events"}[0]->{"source"}[0]->{"userId"};
+
+$now = date('Y-m-d H:i:s');
+
+// データベースに接続するために必要なデータソースを変数に格納
+$dsn = 'mysql:host=us-cdbr-iron-east-03.cleardb.net;dbname=heroku_e84ff0594615ec5;charset=utf8;reconnect=true';
+// データベースのユーザー名
+$user = 'b230e075a82da6';
+// データベースのパスワード
+$password = '36098907';
+
+// tryにPDOの処理を記述
+try {
+// PDOインスタンスを生成
+$dbh = new PDO($dsn, $user, $password);
+// エラー（例外）が発生した時の処理を記述
+} catch (PDOException $e) {
+// エラーメッセージを表示させる
+echo 'データベースにアクセスできません！' . $e->getMessage();
+exit;
+}
+
+// 挿入する値は空のまま、SQL実行の準備をする
+$sql = "INSERT INTO n_work_time (`idn_work_time`, `work_date`, `me_staff_detail_id`, `me_staff_detail_name`, `wo_work_status_id`, `wo_work_status_name`, `updated`) VALUES (:idn_work_time, :work_date, :me_staff_detail_id, :me_staff_detail_name, :wo_work_status_id, :wo_work_status_name, :updated)";
 
 
+// 送られてきたメッセージの中身からレスポンスのタイプを選択
+// ボタンの内容を発言にする
+if ($message->{"text"} == '出勤') {
+    // INSERT文を変数に格納
+
+    $stmt = $dbh->prepare($sql);
+    // 挿入する値を配列に格納する
+    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => 1, ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => 1, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
+
+} elseif ($message->{"text"} == '退勤') {
+    // 確認ダイアログタイプ
+    $messageData = [
+        'type' => 'template',
+        'altText' => '確認ダイアログ',
+        'template' => [
+            'type' => 'buttons',
+            'text' => '退勤パターンは',
+            'actions' => [
+                [
+                    'type' => 'postback',
+                    'label' => '退社',
+                    'text' => '退社',
+                    'data' => '5'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '直帰',
+                    'text' => '直帰',
+                    'data' => '6'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '早退',
+                    'text' => '早退',
+                    'data' => '7'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '宿着',
+                    'text' => '宿着',
+                    'data' => '8'
+                ],
+            ]
+        ]
+    ];
+} elseif ($message->{"text"} == '公休') {
+    // 確認ダイアログタイプ
+    $messageData = [
+        'type' => 'template',
+        'altText' => '確認ダイアログ',
+        'template' => [
+            'type' => 'buttons',
+            'text' => '日付は',
+            'actions' => [
+                [
+                    'type' => 'postback',
+                    'label' => '今日',
+                    'text' => '今日',
+                    'data' => '12'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '明日',
+                    'text' => '明日',
+                    'data' => '9'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '明後日',
+                    'text' => '明後日',
+                    'data' => '10'
+                ],
+                [
+                    'type' => 'postback',
+                    'label' => '明々後日',
+                    'text' => '明々後日',
+                    'data' => '11'
+                ],
+            ]
+        ]
+    ];
+} else {
     // それ以外は送られてきたテキストをオウム返し
     $messageData = [
          'type' => 'text',
-         'text' => $message->{"text"} $send_userId.ですね
+         'text' => $message->{"text"}.ですね
      ];
      //勤務の文字置換
     $str = $message->{"text"};
@@ -36,7 +139,7 @@ $send_userId = $source->{"userId"};
     $user = 'b230e075a82da6';
       // データベースのパスワード
     $password = '36098907';
-     
+
     // tryにPDOの処理を記述
     try {
       // PDOインスタンスを生成
@@ -52,10 +155,11 @@ $send_userId = $source->{"userId"};
     // 挿入する値は空のまま、SQL実行の準備をする
     $stmt = $dbh->prepare($sql);
     // 挿入する値を配列に格納する
-    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' =>  $work_datanum, ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => $work_datanum, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
+    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => $work_datanum, ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => $work_datanum, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
      
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
+}
 
 $response = [
     'replyToken' => $replyToken,
