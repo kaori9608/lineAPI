@@ -32,8 +32,7 @@ if ($message->{"text"} == '出勤') {
                 [
                     'type' => 'postback',
                     'label' => '通常出勤',
-                    'text' => 'ほげ',
-                    'data' => '1'
+                    'text' => 'ほげ'
                 ],
                 [
                     'type' => 'postback',
