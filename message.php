@@ -11,15 +11,15 @@ $source = $jsonObj->{"events"}[0]->{"source"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('$ACCESSTOKEN');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '$CHANNEL_SECRET']);
-$response = $bot->getProfile('$MID');
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    echo $profile['displayName'];
-    // echo $profile['pictureUrl'];
-    // echo $profile['statusMessage'];
-};
+// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('$ACCESSTOKEN');
+// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '$CHANNEL_SECRET']);
+// $response = $bot->getProfile('$MID');
+// if ($response->isSucceeded()) {
+//     $profile = $response->getJSONDecodedBody();
+//     echo $profile['displayName'];
+//     // echo $profile['pictureUrl'];
+//     // echo $profile['statusMessage'];
+// };
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択、ボタンの内容を発言にする
 if ($message->{"text"} == '出勤') {
