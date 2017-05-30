@@ -8,7 +8,6 @@ $jsonObj = json_decode($jsonString);
 
 $message = $jsonObj->{"events"}[0]->{"message"};
 $source = $jsonObj->{"events"}[0]->{"source"};
-
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 
@@ -132,7 +131,7 @@ if ($message->{"text"} == '出勤') {
         ]
     ];
 } else {
-    $send_userId = $message->{"userId"}
+    $send_userId = $source->{"userId"}
     // テキストについての対応
     // それ以外は送られてきたテキストをオウム返し
     $messageData = [
