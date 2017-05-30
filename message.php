@@ -163,7 +163,7 @@ if ($message->{"text"} == '出勤') {
     // 挿入する値は空のまま、SQL実行の準備をする
     $stmt = $dbh->prepare($sql);
     // 挿入する値を配列に格納する
-    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => $send_userId, ':me_staff_detail_name' => $profile_array->{"displayName"}, ':wo_work_status_id' => $work_datanum, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
+    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => $send_userId, ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => $work_datanum, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
      
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
