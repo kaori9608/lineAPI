@@ -12,8 +12,9 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 
 
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+
 // ユーザ情報
-$source = $jsonObj->{"events"}[0]->{"source"}[0];
+$source = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"};
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
@@ -36,7 +37,7 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '直行',
                     'text' => '直行',
-                    'data' => '2',
+                    'data' => '2'
                 ],
                 [
                     'type' => 'postback',
@@ -48,7 +49,7 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '遅刻',
                     'text' => '遅刻',
-                    'data' => '4',
+                    'data' => '4'
                 ],
             ]
         ]
@@ -72,7 +73,7 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '直帰',
                     'text' => '直帰',
-                    'data' => '6',
+                    'data' => '6'
                 ],
                 [
                     'type' => 'postback',
@@ -84,7 +85,7 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '宿着',
                     'text' => '宿着',
-                    'data' => '8',
+                    'data' => '8'
                 ],
             ]
         ]
@@ -114,7 +115,7 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '明後日',
                     'text' => '明後日',
-                    'data' => '10',
+                    'data' => '10'
                 ],
                 [
                     'type' => 'postback',
@@ -170,10 +171,12 @@ if ($message->{"text"} == '出勤') {
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
 }
+
 $response = [
     'replyToken' => $replyToken,
     'messages' => [$messageData]
 ];
+
 error_log(json_encode($response));
 $ch = curl_init('https://api.line.me/v2/bot/message/reply');
 curl_setopt($ch, CURLOPT_POST, true);
