@@ -131,7 +131,7 @@ if ($message->{"text"} == '出勤') {
     // それ以外は送られてきたテキストをオウム返し
     $messageData = [
          'type' => 'text',
-         'text' => $message->{"text"}
+         'text' => $message->{"text"}.ですね
      ];
      //勤務の文字置換
     $str = $message->{"text"};
