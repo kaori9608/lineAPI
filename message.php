@@ -12,7 +12,7 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 // ユーザ情報
-$source = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"};
+$source = $jsonObj->{"events"}[0]->{"source"}[0];
 // sourceからユーザ情報を取得   
 $send_userId = $source->{"userId"};
 
