@@ -35,25 +35,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '通常出勤',
                     'text' => '通常出勤',
-                    'data' => 'work_datanum=1'
+                    'data' => '1'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直行',
                     'text' => '直行',
-                    'data' => 'work_datanum=2',
+                    'data' => '2',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '遅出',
                     'text' => '遅出',
-                    'data' => 'work_datanum=3'
+                    'data' => '3'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '遅刻',
                     'text' => '遅刻',
-                    'data' => 'work_datanum=4',
+                    'data' => '4',
                 ],
             ]
         ]
@@ -71,25 +71,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '退社',
                     'text' => '退社',
-                    'data' => 'work_datanum=5'
+                    'data' => '5'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '直帰',
                     'text' => '直帰',
-                    'data' => 'work_datanum=6',
+                    'data' => '6',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '早退',
                     'text' => '早退',
-                    'data' => 'work_datanum=7'
+                    'data' => '7'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '宿着',
                     'text' => '宿着',
-                    'data' => 'work_datanum=8',
+                    'data' => '8',
                 ],
             ]
         ]
@@ -107,25 +107,25 @@ if ($message->{"text"} == '出勤') {
                     'type' => 'postback',
                     'label' => '今日',
                     'text' => '今日',
-                    'data' => 'work_datanum=12'
+                    'data' => '12'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明日',
                     'text' => '明日',
-                    'data' => 'work_datanum=9'
+                    'data' => '9'
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明後日',
                     'text' => '明後日',
-                    'data' => 'work_datanum=10',
+                    'data' => '10',
                 ],
                 [
                     'type' => 'postback',
                     'label' => '明々後日',
                     'text' => '明々後日',
-                    'data' => 'work_datanum=11'
+                    'data' => '11'
                 ],
             ]
         ]
@@ -141,10 +141,10 @@ if ($message->{"text"} == '出勤') {
 
      //勤務形態などが文章に入っていた場合について
      //勤務の文字置換
-    // $str = $message->{"text"};
-    // $search = array('通常出勤','直行','遅出','遅刻','退社','直帰','早退','宿着','明日','明後日','明々後日','今日');
-    // $replace = array('1','2','3','4','5','6','7','8','9','10','11','12');
-    // $work_datanum = str_replace($search,$replace,$str);
+    $str = $message->{"text"};
+    $search = array('通常出勤','直行','遅出','遅刻','退社','直帰','早退','宿着','明日','明後日','明々後日','今日');
+    $replace = array('1','2','3','4','5','6','7','8','9','10','11','12');
+    $work_datanum = str_replace($search,$replace,$str);
     //時刻の取得
     $now = date('Y-m-d H:i:s');
 
@@ -162,7 +162,7 @@ if ($message->{"text"} == '出勤') {
     // 挿入する値は空のまま、SQL実行の準備をする
     $stmt = $dbh->prepare($sql);
     // 挿入する値を配列に格納する
-    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => $profile_array->$send_userId, ':me_staff_detail_name' => $profile_array->{"displayName"}, ':wo_work_status_id' => postback.data{work_datanum}, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
+    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => $profile_array->$send_userId, ':me_staff_detail_name' => $profile_array->{"displayName"}, ':wo_work_status_id' => $work_datanum, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
 }
