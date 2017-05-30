@@ -12,7 +12,8 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 // // ユーザ情報
-// $source = $jsonObj->{"events"}[0]->{"source"};
+$send_userId = $jsonObj->{"events"}[0]->{"source"}[0]->{"userId"};
+
 // // sourceからユーザ情報を取得   
 // $send_userId = $source->{"userId"};
 
@@ -147,13 +148,7 @@ if ($message->{"text"} == '出勤') {
     $user = 'b230e075a82da6';
       // データベースのパスワード
     $password = '36098907';
-     
-// ユーザ情報
-$source = $jsonObj->{"events"}[0]->{"source"};
-// sourceからユーザ情報を取得   
-$send_userId = $source->{"userId"};
 
-     
     // tryにPDOの処理を記述
     try {
       // PDOインスタンスを生成
