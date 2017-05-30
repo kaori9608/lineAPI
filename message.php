@@ -9,12 +9,13 @@ $jsonObj = json_decode($jsonString);
 
 // メッセージ    
 $message = $jsonObj->{"events"}[0]->{"message"};
-
-
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 // ユーザ情報
 $source = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"};
+// sourceからユーザ情報を取得   
+$send_userId = $source->{"userId"};
+
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
@@ -127,10 +128,6 @@ if ($message->{"text"} == '出勤') {
         ]
     ];
 } else {
-    // sourceからユーザ情報を取得   
-    $send_userId = $source->{"userId"};
-
-
     // それ以外は送られてきたテキストをオウム返し
     $messageData = [
          'type' => 'text',
