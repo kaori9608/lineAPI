@@ -1,12 +1,20 @@
 <?php
 require_once('./vendor/autoload.php');
 $accessToken = 'aWauEUHKwacwEryzppEW/hoquAKyuCXKQvSbsLggJ7jjG2N/KQTEpvXzoNsm5mESnUOyZfhXn+5WqSIQ5ZggTlvASS0Cy6xvWS1JDXkeDeON3x6pEzaBmKHmljyXyAqOhV8cCJonYvFtHwmXB9AiLAdB04t89/1O/w1cDnyilFU=';
+
+// 各コンテンツの内容をJSONに格納
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
 $jsonObj = json_decode($jsonString);
+
+// メッセージ    
 $message = $jsonObj->{"events"}[0]->{"message"};
-$source = $jsonObj->{"events"}[0]->{"source"};
+
+
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+// ユーザ情報
+$source = $jsonObj->{"events"}[0]->{"source"}[0];
+
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
 if ($message->{"text"} == '出勤') {
@@ -118,7 +126,10 @@ if ($message->{"text"} == '出勤') {
         ]
     ];
 } else {
-    $send_userId = $source->{"userId"}
+    // sourceからユーザ情報を取得   
+    $send_userId = $source->{"userId"};
+
+
     // それ以外は送られてきたテキストをオウム返し
     $messageData = [
          'type' => 'text',
