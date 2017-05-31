@@ -44,7 +44,7 @@ if ($message->{"text"} == '出勤') {
     // INSERT文を変数に格納
     $stmt = $dbh->prepare($sql);
     // 挿入する値を配列に格納する
-    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => 1, ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => 1, ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
+    $params = array(':idn_work_time' => '', ':work_date' => $now, ':me_staff_detail_id' => '1', ':me_staff_detail_name' => $send_userId, ':wo_work_status_id' => '1', ':wo_work_status_name' => $message->{"text"}, ':updated' => $now);
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
 
