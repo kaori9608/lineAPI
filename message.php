@@ -1,5 +1,5 @@
 <?php
-require_once('./vendor/autoload.php');
+// require_once('./vendor/autoload.php');
 $accessToken = 'aWauEUHKwacwEryzppEW/hoquAKyuCXKQvSbsLggJ7jjG2N/KQTEpvXzoNsm5mESnUOyZfhXn+5WqSIQ5ZggTlvASS0Cy6xvWS1JDXkeDeON3x6pEzaBmKHmljyXyAqOhV8cCJonYvFtHwmXB9AiLAdB04t89/1O/w1cDnyilFU=';
 
 // 各コンテンツの内容をJSONに格納
@@ -13,10 +13,6 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 // // ユーザ情報
 $send_userId = $jsonObj->{"events"}[0]->{"source"}[0]->{"userId"};
-
-// // sourceからユーザ情報を取得   
-// $send_userId = $source->{"userId"};
-
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
