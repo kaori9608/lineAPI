@@ -11,9 +11,6 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-// // ユーザ情報
-$send_userId = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"}[0]->{"userId"};
-
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
 if ($message->{"text"} == '出勤') {
@@ -126,10 +123,14 @@ if ($message->{"text"} == '出勤') {
     ];
 } else {
     // それ以外は送られてきたテキストをオウム返し
+    // ユーザ情報
+    $send_userId = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"}[0]->{"userId"};
+
     $messageData = [
          'type' => 'text',
          'text' => $message->{"text"}.ですね
      ];
+     
      //勤務の文字置換
     $str = $message->{"text"};
     $search = array('通常出勤','直行','遅出','遅刻','退社','直帰','早退','宿着','明日','明後日','明々後日','今日');
