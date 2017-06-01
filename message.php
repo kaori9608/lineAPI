@@ -12,7 +12,7 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 // // ユーザ情報
-$send_userId = $jsonObj->{"events"}[0]->{"source"}[0]->{"userId"};
+$send_userId = $jsonObj->{"events"}[0]->{"replyToken"}[0]->{"source"}[0]->{"userId"};
 
 // 送られてきたメッセージの中身からレスポンスのタイプを選択
 // ボタンの内容を発言にする
